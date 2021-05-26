@@ -32,7 +32,7 @@ function Stopwatch() {
 
   useEffect(() => {
     const unsubscribe = new Subject();
-    interval(10)
+    interval(1000)
       .pipe(takeUntil(unsubscribe))
       .subscribe(() => {
         if (isRunning) {

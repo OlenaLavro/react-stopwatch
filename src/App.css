@@ -1,0 +1,77 @@
+.stopwatch-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.header {
+  font-size: 35px;
+  font-weight: 800;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stopwatch-wrapper {
+  background-color: #9c9c9c;
+  border-radius: 10px;
+  width: 340px;
+  padding: 15px 18px;
+  margin: 20px 0;
+  border: 3px solid black;
+}
+
+.stopwatch-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3em;
+  border: 1px solid white;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.delimiter {
+  float: left;
+}
+
+.hours, .minutes, .seconds {
+  float: left;
+  padding: 5px;
+  width: 48px;
+  position: relative;
+  display: block;
+  margin: 0 16px;
+}
+
+.button {
+  text-decoration: none;
+  display: inline-block;
+  width: 140px;
+  height: 45px;
+  line-height: 45px;
+  border-radius: 45px;
+  margin: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 3px;
+  font-weight: 600;
+  color: #524f4e;
+  background: rgb(238, 232, 232);
+  transition: .3s;
+  border: 0;
+  border: 1px solid black;
+}
+
+.button:hover {
+  background: #dbdddc;
+  color: white;
+  cursor: pointer;
+}

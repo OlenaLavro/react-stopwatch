@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
-import { interval, Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { interval, Subject, fromEvent, asyncScheduler } from "rxjs";
+import { takeUntil, throttleTime, withLatestFrom } from "rxjs/operators";
 import StopwatchDisplay from "./StopwatchDisplay";
 
 function Stopwatch() {
@@ -9,12 +9,9 @@ function Stopwatch() {
   const [isRunning, setIsRunning] = useState(false);
   const [lastClickedTimeOnWaitBtn, setLastClickedTimeOnWaitBtn] = useState(0);
 
-  const handleStart = () => {
-    setIsRunning(true);
-  };
-
   const handleStop = () => {
     setIsRunning(false);
+    setTime(0);
   };
 
   const handleReset = () => {
@@ -45,6 +42,25 @@ function Stopwatch() {
     };
   }, [isRunning]);
 
+  useEffect(() => {
+    const startClick = fromEvent(
+      document.getElementById("start-btn"),
+      "click"
+    ).subscribe(() => setIsRunning(true));
+
+    const resetClick = fromEvent(
+      document.getElementById("reset-btn"),
+      "click"
+    ).subscribe(() => {
+      setTime(0);
+    });
+
+    return () => {
+      startClick.unsubscribe();
+      resetClick.unsubscribe();
+    };
+  }, []);
+
   return (
     <div className="stopwatch-container">
       <header className="header">Stopwatch</header>
@@ -54,19 +70,23 @@ function Stopwatch() {
 
         <div className="button-list">
           {!isRunning && (
-            <button className="button" onClick={() => handleStart()}>
+            <button className="button" id="start-btn">
               START
             </button>
           )}
           {isRunning && (
-            <button className="button" onClick={() => handleStop()}>
+            <button
+              className="button"
+              id="stop-btn"
+              onClick={() => handleStop()}
+            >
               STOP
             </button>
           )}
           <button className="button" onClick={() => handleWait()}>
             WAIT
           </button>
-          <button className="button" onClick={() => handleReset()}>
+          <button className="button" id="reset-btn">
             RESET
           </button>
         </div>
